@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Keramik</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container mt-5">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Kalkulator Keramik</h4>
+        </div>
+        <div class="card-body">
+          <form id="formKeramik" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Lebar (m)</label>
+              <input type="number" id="lebar" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Panjang (m)</label>
+              <input type="number" id="panjang" class="form-control" required />
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Ukuran Per Dus (m²)</label>
+              <input
+                type="number"
+                step="0.01"
+                id="perdus"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-success">Proses</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="hasil" class="card shadow mt-4 d-none">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0">Hasil Perhitungan</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Luas Total (m²)</th>
+                <th>Kebutuhan (dus)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="luasTotal"></td>
+                <td id="jumlahDus"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document
+        .getElementById("formKeramik")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const panjang = parseFloat(document.getElementById("panjang").value);
+          const lebar = parseFloat(document.getElementById("lebar").value);
+          const perdus = parseFloat(document.getElementById("perdus").value);
+
+          const luas = panjang * lebar;
+          const kebutuhan = Math.ceil(luas / perdus);
+
+          document.getElementById("luasTotal").textContent = luas.toFixed(2);
+          document.getElementById("jumlahDus").textContent = kebutuhan;
+
+          document.getElementById("hasil").classList.remove("d-none");
+        });
+    </script>
+  </body>
+</html>
